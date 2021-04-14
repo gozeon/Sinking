@@ -1,4 +1,20 @@
-# no
+# start
+
+```
+yarn 
+```
+
+init db
+
+```
+npx prisma migrate dev --name init
+```
+
+dev
+
+```
+yarn dev
+```
 
 # referece
 
