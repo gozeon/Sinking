@@ -1,6 +1,7 @@
 export default {
+    components: true,
     loading: {
-        color: 'blue',
+        color: '#e5e7eb',
         height: '5px'
     },
     modules: [
