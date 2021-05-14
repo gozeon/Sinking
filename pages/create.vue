@@ -1,6 +1,5 @@
 <template>
   <form @submit="handleSubmit">
-
     <label class="block" for="method">
       <span class="text-gray-700 block">Method</span>
       <select name="method" id="method" required v-model="method">
@@ -12,24 +11,33 @@
     </label>
 
     <label class="block" for="path">
-      <span class="text-gray-700 block">Method</span>
+      <span class="text-gray-700 block">Path</span>
       <input type="text" name="path" id="path" required v-model="path" />
     </label>
 
     <label class="block" for="code">
-      <span class="text-gray-700 block">Method</span>
-      <textarea id="code" name="code" rows="4" cols="50" required v-model="code" />
-
+      <span class="text-gray-700 block">Code</span>
+      <textarea
+        id="code"
+        name="code"
+        rows="4"
+        cols="50"
+        required
+        v-model="code"
+      />
     </label>
 
-    <button class="border-2 border-gray-800 text-gray-800 px-3 py-1 rounded hover:border-gray-300">Save</button>
+    <button
+      class="border-2 border-gray-800 text-gray-800 px-3 py-1 rounded hover:border-gray-300"
+    >
+      Save
+    </button>
   </form>
-
 </template>
 
 <script>
 export default {
-  layout:'back',
+  layout: 'back',
   data() {
     return {
       method: 'get',
@@ -37,12 +45,19 @@ export default {
       code: '',
     }
   },
-methods: {
-  handleSubmit(e) {
-    e.preventDefault()
+  methods: {
+    async handleSubmit(e) {
+      e.preventDefault()
+      const { data } = await this.$axios.post('/script', this.$data)
 
-    console.log(this.method, this.path, this.code)
-  }
-}
+      if (data?.id) {
+        this.$router.push({
+          path: '/',
+        })
+      } else {
+        alert(data?.errorMessage)
+      }
+    },
+  },
 }
 </script>
